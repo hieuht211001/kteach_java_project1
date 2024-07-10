@@ -7,7 +7,6 @@ import java.util.Set;
 
 public class todoTask
 {
-    public static Set<todoTask> todoTaskList = new HashSet<>();
     private String sTaskTitle;
     private String sEndDate;
     private boolean bIsCompleted;
@@ -27,10 +26,7 @@ public class todoTask
         return sTaskTitle;
     }
 
-    public void setsTaskTitle(String sTaskTitle)
-    {
-        this.sTaskTitle = sTaskTitle;
-    }
+    public void setsTaskTitle(String sTaskTitle) { this.sTaskTitle = sTaskTitle; }
 
     public String getsEndDate()
     {
@@ -49,12 +45,18 @@ public class todoTask
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         try
         {
-            LocalDate.parse(sDate, formatter);
+            LocalDate endDate = LocalDate.parse(sDate, formatter);
+            if (endDate.isBefore(LocalDate.now())) { return false;}
             return true;
         }
         catch (Exception e)
         {
             return false;
         }
+    }
+
+    public String convertToString()
+    {
+        return String.format("%s,%s,%s", sTaskTitle, sEndDate, bIsCompleted);
     }
 }

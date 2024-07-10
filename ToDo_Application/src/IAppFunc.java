@@ -6,4 +6,5 @@ public interface IAppFunc
     public void finishTask();
     public void deleteTask();
     public void exitApp();
+    public String showTaskList();
 }

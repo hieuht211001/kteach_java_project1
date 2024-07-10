@@ -19,9 +19,9 @@ public class IOController
                 String[] sTaskField = sTaskLine.split(",");
                 todoTask newTask = new todoTask();
                 newTask.setsTaskTitle(sTaskField[0]);
-                newTask.setBIsCompleted(Boolean.parseBoolean(sTaskField[1]));
-                if (!newTask.setsEndDate(sTaskField[2])) throw new RuntimeException();
-                todoTask.todoTaskList.add(newTask);
+                newTask.setBIsCompleted(Boolean.parseBoolean(sTaskField[2]));
+                if (!newTask.setsEndDate(sTaskField[1])) throw new RuntimeException();
+                AppFunc.todoTaskList.add(newTask);
             }
             return true;
         }
@@ -36,14 +36,16 @@ public class IOController
         try (FileWriter fw = new FileWriter(sfilePath);
              BufferedWriter bw = new BufferedWriter(fw))
         {
-            for (todoTask _todoTask : todoTask.todoTaskList)
+            for (todoTask _todoTask : AppFunc.todoTaskList)
             {
-                
+                bw.write(_todoTask.convertToString());
+                bw.newLine();
             }
+            return true;
         }
         catch (Exception e)
         {
-            throw new RuntimeException(e);
+            return false;
         }
     }
 }
